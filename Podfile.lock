@@ -1,0 +1,42 @@
+PODS:
+  - Alamofire (4.3.0)
+  - DZNEmptyDataSet (1.8.1)
+  - Kingfisher (3.4.0)
+  - MJRefresh (3.1.12)
+  - ObjectMapper (2.2.2)
+  - pop (1.0.9)
+  - SVProgressHUD (2.1.2)
+  - SwiftyJSON (3.1.4)
+
+DEPENDENCIES:
+  - Alamofire
+  - DZNEmptyDataSet
+  - Kingfisher (~> 3.0)
+  - MJRefresh
+  - ObjectMapper (~> 2.2)
+  - pop (~> 1.0)
+  - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
+  - SwiftyJSON
+
+EXTERNAL SOURCES:
+  SVProgressHUD:
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
+
+CHECKOUT OPTIONS:
+  SVProgressHUD:
+    :commit: 803bc1e473e2861f75abf06174d9c937de7a0fe0
+    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Kingfisher: 5690cfb3d1bddf3a98d679a3a34d0b7294974ed2
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+
+PODFILE CHECKSUM: 5c93aa0df1d77323f63e07e1042de52d246b763f
+
+COCOAPODS: 1.2.0
