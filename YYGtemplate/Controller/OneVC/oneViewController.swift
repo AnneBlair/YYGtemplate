@@ -12,17 +12,26 @@ class oneViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let klineView = YYGKline(frame: CGRect(x: 0, y: 200, width: 375, height: 300), ss: "22")
-//        klineView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        view.addSubview(klineView)
-        
+        let klineVC = YYGKlinecontainerVC(style: .noFullScreen)
+        klineVC.view.frame = CGRect(x: 10, y: 200, width: 355, height: 300)
+        addChildViewController(klineVC)
+        view.addSubview(klineVC.view)
+        klineVC.didMove(toParentViewController: self)
     }
-
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "fullScreenSB") as? fullScreenViewController {
+            vc.modalTransitionStyle = .crossDissolve
+            present(vc, animated: true, completion: nil)
+        }
     }
 }

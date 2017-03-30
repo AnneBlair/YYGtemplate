@@ -12,6 +12,9 @@
 		D3242B511E839C3A008B6AF3 /* YYGcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3242B4E1E839C3A008B6AF3 /* YYGcategory.swift */; };
 		D3242B521E839C3A008B6AF3 /* YYGRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3242B4F1E839C3A008B6AF3 /* YYGRegular.swift */; };
 		D3242B531E839C3A008B6AF3 /* YYGText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3242B501E839C3A008B6AF3 /* YYGText.swift */; };
+		D32D6A091E8B85A600C87F78 /* YYGlineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32D6A081E8B85A600C87F78 /* YYGlineLabel.swift */; };
+		D32D6A0B1E8CB5C900C87F78 /* fullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32D6A0A1E8CB5C900C87F78 /* fullScreenViewController.swift */; };
+		D32D6A0D1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32D6A0C1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift */; };
 		D34643CD1E83C7BB004EE56D /* POPanimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643CC1E83C7BB004EE56D /* POPanimator.swift */; };
 		D34643CF1E88E6CC004EE56D /* oneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643CE1E88E6CC004EE56D /* oneViewController.swift */; };
 		D34643F11E890DE0004EE56D /* YYGKline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643F01E890DE0004EE56D /* YYGKline.swift */; };
@@ -28,6 +31,9 @@
 		D3242B4E1E839C3A008B6AF3 /* YYGcategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGcategory.swift; sourceTree = "<group>"; };
 		D3242B4F1E839C3A008B6AF3 /* YYGRegular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGRegular.swift; sourceTree = "<group>"; };
 		D3242B501E839C3A008B6AF3 /* YYGText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGText.swift; sourceTree = "<group>"; };
+		D32D6A081E8B85A600C87F78 /* YYGlineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGlineLabel.swift; sourceTree = "<group>"; };
+		D32D6A0A1E8CB5C900C87F78 /* fullScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullScreenViewController.swift; sourceTree = "<group>"; };
+		D32D6A0C1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGKlinecontainerVC.swift; sourceTree = "<group>"; };
 		D34643CC1E83C7BB004EE56D /* POPanimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POPanimator.swift; sourceTree = "<group>"; };
 		D34643CE1E88E6CC004EE56D /* oneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oneViewController.swift; sourceTree = "<group>"; };
 		D34643F01E890DE0004EE56D /* YYGKline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGKline.swift; sourceTree = "<group>"; };
@@ -189,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				D34643CE1E88E6CC004EE56D /* oneViewController.swift */,
+				D32D6A0A1E8CB5C900C87F78 /* fullScreenViewController.swift */,
+				D32D6A0C1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift */,
 			);
 			path = OneVC;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				D34643F01E890DE0004EE56D /* YYGKline.swift */,
+				D32D6A081E8B85A600C87F78 /* YYGlineLabel.swift */,
 			);
 			path = YYGKline;
 			sourceTree = "<group>";
@@ -390,12 +399,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D32D6A0D1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift in Sources */,
+				D32D6A091E8B85A600C87F78 /* YYGlineLabel.swift in Sources */,
 				D3242B4C1E839B52008B6AF3 /* customTabBarController.swift in Sources */,
 				D3E48B8E1E8363C3002C305A /* AppDelegate.swift in Sources */,
 				D3242B521E839C3A008B6AF3 /* YYGRegular.swift in Sources */,
 				D34643CF1E88E6CC004EE56D /* oneViewController.swift in Sources */,
 				D3242B511E839C3A008B6AF3 /* YYGcategory.swift in Sources */,
 				D34643F11E890DE0004EE56D /* YYGKline.swift in Sources */,
+				D32D6A0B1E8CB5C900C87F78 /* fullScreenViewController.swift in Sources */,
 				D34643CD1E83C7BB004EE56D /* POPanimator.swift in Sources */,
 				D3242B531E839C3A008B6AF3 /* YYGText.swift in Sources */,
 			);
