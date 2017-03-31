@@ -18,6 +18,9 @@
 		D34643CD1E83C7BB004EE56D /* POPanimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643CC1E83C7BB004EE56D /* POPanimator.swift */; };
 		D34643CF1E88E6CC004EE56D /* oneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643CE1E88E6CC004EE56D /* oneViewController.swift */; };
 		D34643F11E890DE0004EE56D /* YYGKline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34643F01E890DE0004EE56D /* YYGKline.swift */; };
+		D3986AB21E8E237C00C7392F /* KlineParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986AB11E8E237C00C7392F /* KlineParameter.swift */; };
+		D3986AB41E8E257600C7392F /* KlineWalkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986AB31E8E257600C7392F /* KlineWalkView.swift */; };
+		D3986AB61E8E679200C7392F /* YYGShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986AB51E8E679200C7392F /* YYGShapeLayer.swift */; };
 		D3E48B8E1E8363C3002C305A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E48B8D1E8363C3002C305A /* AppDelegate.swift */; };
 		D3E48B931E8363C3002C305A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E48B911E8363C3002C305A /* Main.storyboard */; };
 		D3E48B951E8363C3002C305A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E48B941E8363C3002C305A /* Assets.xcassets */; };
@@ -37,6 +40,9 @@
 		D34643CC1E83C7BB004EE56D /* POPanimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POPanimator.swift; sourceTree = "<group>"; };
 		D34643CE1E88E6CC004EE56D /* oneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oneViewController.swift; sourceTree = "<group>"; };
 		D34643F01E890DE0004EE56D /* YYGKline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGKline.swift; sourceTree = "<group>"; };
+		D3986AB11E8E237C00C7392F /* KlineParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KlineParameter.swift; sourceTree = "<group>"; };
+		D3986AB31E8E257600C7392F /* KlineWalkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KlineWalkView.swift; sourceTree = "<group>"; };
+		D3986AB51E8E679200C7392F /* YYGShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYGShapeLayer.swift; sourceTree = "<group>"; };
 		D3E48B8A1E8363C3002C305A /* YYGtemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYGtemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E48B8D1E8363C3002C305A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3E48B921E8363C3002C305A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -233,10 +239,21 @@
 		D34643EF1E890DBF004EE56D /* YYGKline */ = {
 			isa = PBXGroup;
 			children = (
+				D3986AB01E8E0B4E00C7392F /* YYGKlineModel */,
 				D34643F01E890DE0004EE56D /* YYGKline.swift */,
 				D32D6A081E8B85A600C87F78 /* YYGlineLabel.swift */,
+				D3986AB31E8E257600C7392F /* KlineWalkView.swift */,
+				D3986AB51E8E679200C7392F /* YYGShapeLayer.swift */,
 			);
 			path = YYGKline;
+			sourceTree = "<group>";
+		};
+		D3986AB01E8E0B4E00C7392F /* YYGKlineModel */ = {
+			isa = PBXGroup;
+			children = (
+				D3986AB11E8E237C00C7392F /* KlineParameter.swift */,
+			);
+			path = YYGKlineModel;
 			sourceTree = "<group>";
 		};
 		D3E48B811E8363C3002C305A = {
@@ -404,11 +421,14 @@
 				D3242B4C1E839B52008B6AF3 /* customTabBarController.swift in Sources */,
 				D3E48B8E1E8363C3002C305A /* AppDelegate.swift in Sources */,
 				D3242B521E839C3A008B6AF3 /* YYGRegular.swift in Sources */,
+				D3986AB61E8E679200C7392F /* YYGShapeLayer.swift in Sources */,
 				D34643CF1E88E6CC004EE56D /* oneViewController.swift in Sources */,
 				D3242B511E839C3A008B6AF3 /* YYGcategory.swift in Sources */,
+				D3986AB21E8E237C00C7392F /* KlineParameter.swift in Sources */,
 				D34643F11E890DE0004EE56D /* YYGKline.swift in Sources */,
 				D32D6A0B1E8CB5C900C87F78 /* fullScreenViewController.swift in Sources */,
 				D34643CD1E83C7BB004EE56D /* POPanimator.swift in Sources */,
+				D3986AB41E8E257600C7392F /* KlineWalkView.swift in Sources */,
 				D3242B531E839C3A008B6AF3 /* YYGText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

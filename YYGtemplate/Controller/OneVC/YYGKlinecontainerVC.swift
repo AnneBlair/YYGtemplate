@@ -40,7 +40,7 @@ class YYGKlinecontainerVC: UIViewController {
         case .noFullScreen:
             lineFram = CGRect(x: 0, y: 0, width: 355, height: 300)
         case .FullScreen:
-            lineFram = CGRect(x: 0, y: 50, width: view.frame.height, height: view.frame.width - 50)
+            lineFram = CGRect(x: 0, y: 0, width: view.frame.height - 20, height: view.frame.width - 60)
         }
         let klineView = YYGKline(frame: lineFram, ss: "22")
         view.addSubview(klineView)

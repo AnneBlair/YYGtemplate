@@ -12,18 +12,15 @@ class fullScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tempView = UIView(frame: CGRect(x: 10, y: 50, width: UIScreeHeight - 20, height: UIScreeWidth - 50))
+        view.addSubview(tempView)
         let klineVC = YYGKlinecontainerVC(style: .FullScreen)
-        klineVC.view.frame = view.bounds
-//            CGRect(x: 10, y: 10, width: UIScreeHeight - 20, height: UIScreeWidth - 20)
+        klineVC.view.frame = CGRect(x: 0, y: 0, width: UIScreeHeight - 20 , height: UIScreeWidth - 50)
         addChildViewController(klineVC)
-        view.addSubview(klineVC.view)
+        tempView.addSubview(klineVC.view)
         klineVC.didMove(toParentViewController: self)
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     override var shouldAutorotate: Bool {
         return false

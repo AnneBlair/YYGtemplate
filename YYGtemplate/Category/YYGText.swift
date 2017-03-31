@@ -84,6 +84,18 @@ extension String {
         let str2 = stringCutToEnd(star: locat)
         return str1 + content + str2
     }
+    
+    /// 计算字符串宽高
+    ///
+    /// - Parameter size: size
+    /// - Returns: CGSize
+    func getStringSzie(size: CGFloat = 10) -> CGSize {
+        let baseFont = UIFont.systemFont(ofSize: size)
+        let size = self.size(attributes: [NSFontAttributeName: baseFont])
+        let width = ceil(size.width) + 5
+        let height = ceil(size.height)
+        return CGSize(width: width, height: height)
+    }
 }
 
 

@@ -9,6 +9,20 @@
 import UIKit
 
 class YYGlineLabel: UIView {
+    
+    /// 所有虚线的X
+    var lineX: CGFloat = 45
+    /// 最上面开始的Y
+    var lineY: CGFloat = 15
+    /// 虚线的个数
+    var dottedNum = 11
+    /// K线的高度
+    var lineHeight: CGFloat {
+        return height - lineY * 2
+    }
+    /// 标尺的宽度
+    var scaleWide: CGFloat = 6
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         drawLineLabel()
@@ -18,23 +32,45 @@ class YYGlineLabel: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let view = super.hitTest(point, with: event)
+        if view == self {
+            return nil
+        }
+        return view
+    }
+
     func drawLineLabel() {
-        let tempText = CATextLayer()
-        tempText.frame = CGRect(x: 0, y: 30, width: 50, height: 20)
-        tempText.string = "测试"
-        tempText.fontSize = 10
-        tempText.foregroundColor = UIColor.red.cgColor
-        tempText.backgroundColor = UIColor.gray.cgColor
-        tempText.alignmentMode = kCAAlignmentCenter
-        tempText.contentsScale = UIScreen.main.scale
-        layer.addSublayer(tempText)
+        
+        let textSize = "100K".getStringSzie()
+        let textX = lineX - textSize.width - scaleWide - 2
+        for i in 0...dottedNum {
+            do {
+                let tempText = CATextLayer()
+                textSetting(textLayer: tempText)
+                let y = ((lineHeight - lineY) / CGFloat(dottedNum)) * CGFloat(i) + lineY - (textSize.height / 2)
+                tempText.string = "\(30 * (dottedNum - i))K"
+                tempText.frame = CGRect(origin: CGPoint(x: textX, y: y), size: textSize)
+                layer.addSublayer(tempText)
+            }
+            do {
+                let textX = wide - lineX + scaleWide + 2
+                let tempText = CATextLayer()
+                textSetting(textLayer: tempText)
+                tempText.alignmentMode = kCAAlignmentLeft
+                let y = ((lineHeight - lineY) / CGFloat(dottedNum)) * CGFloat(i) + lineY - (textSize.height / 2)
+                tempText.string = "\(Double(62 + (dottedNum - i)) / 10.0)"
+                tempText.frame = CGRect(origin: CGPoint(x: textX, y: y), size: textSize)
+                layer.addSublayer(tempText)
+            }
+        }
+    }
+    func textSetting(textLayer: CATextLayer) {
+        textLayer.fontSize = 10
+        textLayer.foregroundColor = UIColor.red.cgColor
+        textLayer.alignmentMode = kCAAlignmentRight
+        textLayer.contentsScale = UIScreen.main.scale
     }
 }
 
-func getTextSize(text: String, size: CGFloat = 10) -> CGSize {
-    let baseFont = UIFont.systemFont(ofSize: size)
-    let size = text.size(attributes: [NSFontAttributeName: baseFont])
-    let width = ceil(size.width) + 5
-    let height = ceil(size.height)
-    return CGSize(width: width, height: height)
-}
+

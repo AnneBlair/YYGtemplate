@@ -9,7 +9,6 @@
 import UIKit
 
 class YYGKline: UIView {
-    
     /// 所有虚线的X
     var lineX: CGFloat = 45
     /// 最上面开始的Y
@@ -23,16 +22,36 @@ class YYGKline: UIView {
     /// 标尺的宽度
     var scaleWide: CGFloat = 6
     
-    var scrollview: UIScrollView?
+    var scrollview: UIScrollView!
+    
+    var klineWalk: KlineWalkView!
     
     init(frame: CGRect,ss: String) {
         super.init(frame: frame)
         drawFrameLayer()
         let label = YYGlineLabel(frame: bounds)
         addSubview(label)
+        
+        scrollview = UIScrollView(frame: CGRect(x: lineX, y: lineY, width: wide - lineX * 2, height: lineHeight - lineY))
+        scrollview.showsVerticalScrollIndicator = true
+        scrollview.alwaysBounceHorizontal = true
+        scrollview.delegate = self as? UIScrollViewDelegate
+        scrollview.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
+        
+        addSubview(scrollview)
+        
+        klineWalk = KlineWalkView()
+//        klineWalk.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        scrollview.addSubview(klineWalk)
+        configureView()
+        addGestureRecognizer()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        scrollview.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
     }
     
     func drawFrameLayer() {
@@ -49,7 +68,7 @@ class YYGKline: UIView {
         let translatePath = UIBezierPath()
         /// 标注尺
         let scalePlatePath = UIBezierPath()
-        for i in 0..<dottedNum {
+        for i in 0...dottedNum {
             let y = ((lineHeight - lineY) / CGFloat(dottedNum)) * CGFloat(i) + lineY
             translatePath.move(to: CGPoint(x: lineX, y: y))
             translatePath.addLine(to: CGPoint(x: wide - lineX, y: y))
@@ -89,5 +108,29 @@ class YYGKline: UIView {
         sideLineLayer.path = sideLinePath.cgPath
         layer.addSublayer(sideLineLayer)
     }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(UIScrollView.contentOffset) {
+            printLogDebug("拖动的时候才会调用")
+        }
+    }
+    
+    func configureView() {
+        klineWalk.frame = CGRect(x: 0, y: 0, width: 700, height: scrollview.height)
+        scrollview.contentSize = CGSize(width: 700, height: scrollview.height)
+    }
+    
+    func addGestureRecognizer() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longHandeleAction(_:)))
+        klineWalk.addGestureRecognizer(longPressGesture)
+    }
+    
+    func longHandeleAction(_ recognizer: UILongPressGestureRecognizer) {
+        printLogDebug("long Action")
+    }
+    func testaAction() {
+        printLogDebug("test")
+    }
+    
 }
 

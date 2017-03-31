@@ -81,7 +81,11 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </barButtonItem>
-                            <barButtonItem title="登录" id="8CP-cT-mko"/>
+                            <barButtonItem title="登录" id="8CP-cT-mko">
+                                <connections>
+                                    <action selector="handler:" destination="Dnh-tQ-m9N" id="xaF-D3-4A3"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>

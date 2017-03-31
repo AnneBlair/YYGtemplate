@@ -29,6 +29,9 @@ class oneViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+    }
+    @IBAction func handler(_ sender: Any) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "fullScreenSB") as? fullScreenViewController {
             vc.modalTransitionStyle = .crossDissolve
             present(vc, animated: true, completion: nil)
