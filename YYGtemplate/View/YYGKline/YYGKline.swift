@@ -22,6 +22,10 @@ class YYGKline: UIView {
     /// 标尺的宽度
     var scaleWide: CGFloat = 6
     
+    /// 数据
+    var dataArrs: [Any] = []
+    
+    
     var scrollview: UIScrollView!
     
     var klineWalk: KlineWalkView!
@@ -32,16 +36,14 @@ class YYGKline: UIView {
         let label = YYGlineLabel(frame: bounds)
         addSubview(label)
         
-        scrollview = UIScrollView(frame: CGRect(x: lineX, y: lineY, width: wide - lineX * 2, height: lineHeight - lineY))
-        scrollview.showsVerticalScrollIndicator = true
-        scrollview.alwaysBounceHorizontal = true
+        scrollview = UIScrollView(frame: CGRect(x: lineX, y: lineY, width: wide - lineX * 2, height: lineHeight + lineY))
+        scrollview.showsVerticalScrollIndicator = false
+        scrollview.showsHorizontalScrollIndicator = false
+        scrollview.alwaysBounceHorizontal = false
         scrollview.delegate = self as? UIScrollViewDelegate
         scrollview.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
-        
         addSubview(scrollview)
-        
         klineWalk = KlineWalkView()
-//        klineWalk.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         scrollview.addSubview(klineWalk)
         configureView()
         addGestureRecognizer()
@@ -112,6 +114,7 @@ class YYGKline: UIView {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(UIScrollView.contentOffset) {
             printLogDebug("拖动的时候才会调用")
+            klineWalk.drawKlineView()
         }
     }
     

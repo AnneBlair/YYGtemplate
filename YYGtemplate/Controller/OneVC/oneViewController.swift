@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class oneViewController: UIViewController {
-
+    
+    var klineVC: YYGKlinecontainerVC!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let klineVC = YYGKlinecontainerVC(style: .noFullScreen)
+        klineVC = YYGKlinecontainerVC(style: .noFullScreen)
         klineVC.view.frame = CGRect(x: 10, y: 200, width: 355, height: 300)
         addChildViewController(klineVC)
         view.addSubview(klineVC.view)
