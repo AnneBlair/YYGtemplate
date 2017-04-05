@@ -185,7 +185,6 @@
 				D34643C71E83C53E004EE56D /* FourVC */,
 				D34643C81E83C53E004EE56D /* OneVC */,
 				D34643C91E83C53E004EE56D /* ThreeVC */,
-				D34643CA1E83C53E004EE56D /* TwoVC */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -203,6 +202,7 @@
 				D34643CE1E88E6CC004EE56D /* oneViewController.swift */,
 				D32D6A0A1E8CB5C900C87F78 /* fullScreenViewController.swift */,
 				D32D6A0C1E8CEAA600C87F78 /* YYGKlinecontainerVC.swift */,
+				D34643CA1E83C53E004EE56D /* TwoVC */,
 			);
 			path = OneVC;
 			sourceTree = "<group>";
@@ -218,7 +218,8 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = TwoVC;
+			name = TwoVC;
+			path = ../TwoVC;
 			sourceTree = "<group>";
 		};
 		D34643CB1E83C7A5004EE56D /* Animator */ = {
@@ -498,6 +499,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-bridging-pch";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -540,6 +542,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "-enable-bridging-pch";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;

@@ -14,10 +14,10 @@ enum scaleStyle: Int {
     case noFullScreen
     case FullScreen
 }
+
 class YYGKlinecontainerVC: UIViewController {
-    
     /// 数据
-    var arrs: [Any] = []
+//    var arrs: [Any] = []
     /// 当前的屏幕显示模式
     var scrssnStyle: scaleStyle = .noFullScreen
     
@@ -32,7 +32,6 @@ class YYGKlinecontainerVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewController()
@@ -43,11 +42,12 @@ class YYGKlinecontainerVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func setUpViewController() {
         var lineFram = CGRect.zero
         switch scrssnStyle {
         case .noFullScreen:
-            lineFram = CGRect(x: 0, y: 0, width: 355, height: 300)
+            lineFram = CGRect(x: 0, y: 0, width: UIScreeWidth - 20, height: 300 * NOW_HEIGHT)
         case .FullScreen:
             lineFram = CGRect(x: 0, y: 0, width: view.frame.height - 20, height: view.frame.width - 60)
         }
@@ -58,13 +58,13 @@ class YYGKlinecontainerVC: UIViewController {
     func getDataMessage() {
         
         let parameters: [String : Any] = ["base":["currency":"F136452704B604A2BC6D5150B05A7D18C616A200",
-                                                  "issuer":"rBKc4SppocwrBQT4hXbrBqR6UcVWBLbHqc"],
-                                          "counter":["currency":"BC5BFBEFF3748F1B89BB0A09893452F21B434E59",
-                                                     "issuer":"rJwxNNY2H1RHr8ePY46UpJxMKUSCziYJjq"],
-                                          "timeIncrement":"hour",
-                                          "timeMultiple":1,
-                                          "startTime":"2017-03-29T07:00:00.000Z",
-                                          "endTime":"2017-04-01T07:00:00.000Z"]
+            "issuer": "rBKc4SppocwrBQT4hXbrBqR6UcVWBLbHqc"],
+            "counter": ["currency": "BC5BFBEFF3748F1B89BB0A09893452F21B434E59",
+                                          "issuer": "rJwxNNY2H1RHr8ePY46UpJxMKUSCziYJjq"],
+                                          "timeIncrement": "hour",
+                                          "timeMultiple": 1,
+                                          "startTime": "2017-03-29T07:00:00.000Z",
+                                          "endTime": "2017-04-05T07:00:00.000Z"]
         
         Alamofire.request("https://www.r8exchange.com/chart-api/offersExercised", method: .post, parameters: parameters).responseJSON { (response) in
             switch response.result {
@@ -73,8 +73,7 @@ class YYGKlinecontainerVC: UIViewController {
                 if let value = response.result.value {
                     let json = JSON(value)
                     printLogDebug("\(json)")
-                    self.arrs = json.arrayObject!
-                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Kdata"), object: self, userInfo: ["Kdata" :json.arrayObject!])
                 }
             case .failure(_):
                 printLogDebug("failure")

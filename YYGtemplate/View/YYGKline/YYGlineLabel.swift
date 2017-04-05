@@ -16,7 +16,7 @@ class YYGlineLabel: UIView {
     var lineY: CGFloat = 15
     /// 虚线的个数
     var dottedNum = 11
-    /// K线的高度
+    /// K线的坐标系的y
     var lineHeight: CGFloat {
         return height - lineY * 2
     }

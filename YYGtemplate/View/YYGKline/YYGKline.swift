@@ -15,7 +15,7 @@ class YYGKline: UIView {
     var lineY: CGFloat = 15
     /// 虚线的个数
     var dottedNum = 11
-    /// K线的高度
+    /// K线的坐标系的y
     var lineHeight: CGFloat {
         return height - lineY * 2
     }
@@ -23,8 +23,7 @@ class YYGKline: UIView {
     var scaleWide: CGFloat = 6
     
     /// 数据
-    var dataArrs: [Any] = []
-    
+//    var dataArrs: [Any] = []
     
     var scrollview: UIScrollView!
     
@@ -131,9 +130,9 @@ class YYGKline: UIView {
     func longHandeleAction(_ recognizer: UILongPressGestureRecognizer) {
         printLogDebug("long Action")
     }
+    
     func testaAction() {
         printLogDebug("test")
     }
-    
 }
 

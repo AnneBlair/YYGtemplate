@@ -17,7 +17,7 @@ class oneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         klineVC = YYGKlinecontainerVC(style: .noFullScreen)
-        klineVC.view.frame = CGRect(x: 10, y: 200, width: 355, height: 300)
+        klineVC.view.frame = CGRect(x: 10, y: 200 * NOW_HEIGHT, width: UIScreeWidth - 20, height: 300 * NOW_HEIGHT)
         addChildViewController(klineVC)
         view.addSubview(klineVC.view)
         klineVC.didMove(toParentViewController: self)
