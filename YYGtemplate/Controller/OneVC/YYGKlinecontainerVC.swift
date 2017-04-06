@@ -63,8 +63,8 @@ class YYGKlinecontainerVC: UIViewController {
                                           "issuer": "rJwxNNY2H1RHr8ePY46UpJxMKUSCziYJjq"],
                                           "timeIncrement": "hour",
                                           "timeMultiple": 1,
-                                          "startTime": "2017-03-29T07:00:00.000Z",
-                                          "endTime": "2017-04-05T07:00:00.000Z"]
+                                          "startTime": "2017-03-30T09:00:00.000Z",
+                                          "endTime": "2017-04-06T09:00:00.000Z"]
         
         Alamofire.request("https://www.r8exchange.com/chart-api/offersExercised", method: .post, parameters: parameters).responseJSON { (response) in
             switch response.result {
@@ -73,7 +73,7 @@ class YYGKlinecontainerVC: UIViewController {
                 if let value = response.result.value {
                     let json = JSON(value)
                     printLogDebug("\(json)")
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Kdata"), object: self, userInfo: ["Kdata" :json.arrayObject!])
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "Kdata"), object: self, userInfo: ["Kdata" :json.arrayValue])
                 }
             case .failure(_):
                 printLogDebug("failure")
