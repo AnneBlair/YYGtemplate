@@ -41,11 +41,11 @@ class KlineWalkView: UIView {
         if let dic = kNotifi.userInfo {
             if let arr = dic["Kdata"] {
                 kDataArr = arr as! [JSON]
+                drawKlineView()
+                // 数据更新的时候从新绘制底部
+                drawBottomScale()
+                drawTradingVolum()
             }
-            drawKlineView()
-            // 数据更新的时候从新绘制底部
-            drawBottomScale()
-            drawTradingVolum()
         }
     }
     
@@ -75,8 +75,13 @@ class KlineWalkView: UIView {
         }
         layer.addSublayer(columnLayer)
     }
-    func rectCalculate(i: Int,unit: CGFloat) {
     
+    /// 单个柱状图处理
+    ///
+    /// - Parameters:
+    ///   - i: 第几个
+    ///   - unit: 最小间距份数
+    func rectCalculate(i: Int,unit: CGFloat) {
         let volume: CGFloat = CGFloat(kDataArr[i][1].doubleValue) / 30000.0
         let h = volume * (height - 45) / 11.0
         let rect = CGRect(x: CGFloat(i) * spaceScale / 3 + unit , y: height - 30 - h, width: unit * 3, height: h)
@@ -84,12 +89,9 @@ class KlineWalkView: UIView {
         let vlayer = YYGShapeLayer()
         vlayer.path = linePath.cgPath
         vlayer.lineWidth = 0.5
-        vlayer.fillColor = UIColor.white.cgColor
+        vlayer.fillColor = UIColor(r: 196, g: 196, b: 196).cgColor
         vlayer.strokeColor = UIColor(r: 196, g: 196, b: 196).cgColor
-        
         columnLayer.addSublayer(vlayer)
-        
-//        kDataArr[i + 1][1].floatValue / 1000.0 / 30 * (height - 45) / 11.0
     }
     
     func getVolumeLayer(i: Int) -> YYGShapeLayer {
@@ -111,6 +113,7 @@ class KlineWalkView: UIView {
             let coordX = CGFloat(i) * spaceScale
             bottomScale.move(to: CGPoint(x: coordX, y: height - 30))
             bottomScale.addLine(to: CGPoint(x: coordX, y: height - 26))
+            
             let textBottom = CATextLayer()
             textBottom.string = datePatternSetting(i: i)
             textBottom.frame = CGRect(origin: CGPoint(x: coordX - spaceScale / 2, y: height - 24), size: textSize)
@@ -132,6 +135,10 @@ class KlineWalkView: UIView {
         textLayer.foregroundColor = UIColor.red.cgColor
         textLayer.alignmentMode = kCAAlignmentCenter
         textLayer.contentsScale = UIScreen.main.scale
+    }
+    
+    func textBottomSetting(i: Int,coordX: CGFloat,textSize: CGSize) {
+        
     }
     
 //    "2017-03-29T07:00:00+00:00"
