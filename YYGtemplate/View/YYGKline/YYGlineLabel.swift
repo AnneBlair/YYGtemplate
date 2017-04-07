@@ -59,7 +59,7 @@ class YYGlineLabel: UIView {
                 textSetting(textLayer: tempText)
                 tempText.alignmentMode = kCAAlignmentLeft
                 let y = ((lineHeight - lineY) / CGFloat(dottedNum)) * CGFloat(i) + lineY - (textSize.height / 2)
-                tempText.string = "\(Double(62 + (dottedNum - i)) / 10.0)"
+                tempText.string = "\(Double(66 + (dottedNum - i)) / 10.0)"
                 tempText.frame = CGRect(origin: CGPoint(x: textX, y: y), size: textSize)
                 layer.addSublayer(tempText)
             }

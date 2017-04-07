@@ -13,9 +13,13 @@ class KlineWalkView: UIView {
     
     var parametric = KlineParameter()
     var kDataArr: [JSON] = []
+    /// 蜡烛图
+    var candleLayer = YYGShapeLayer()
     /// 柱状图
     var columnLayer = YYGShapeLayer()
+    /// 底部文字
     var textLayer = YYGShapeLayer()
+    /// 底部标尺
     var bottomLayer = YYGShapeLayer()
     /// 放大系数
     var ratio: CGFloat = 1
@@ -38,6 +42,7 @@ class KlineWalkView: UIView {
     }
     
     func kdataNotification(kNotifi: Notification) {
+        
         if let dic = kNotifi.userInfo {
             if let arr = dic["Kdata"] {
                 kDataArr = arr as! [JSON]
@@ -45,6 +50,7 @@ class KlineWalkView: UIView {
                 // 数据更新的时候从新绘制底部
                 drawBottomScale()
                 drawTradingVolum()
+                drawCandleChartLayer()
             }
         }
     }
@@ -61,9 +67,77 @@ class KlineWalkView: UIView {
     
     /// 蜡烛图
     private func drawCandleChartLayer() {
-        
+        candleLayer.removeFromSuperlayer()
+        candleLayer.sublayers?.removeAll()
+        for i in 1..<kDataArr.count {
+            singleCandleLayer(i: i)
+        }
+        layer.addSublayer(candleLayer)
     }
     
+    func singleCandleLayer(i: Int) {
+
+        let rect = rectForSingleCandle(i: i)
+        let candelBezier = UIBezierPath(rect: rect)
+    
+        drawSingleHatch(i: i, candelPath: candelBezier)
+        
+        let cLayer = YYGShapeLayer()
+        cLayer.path = candelBezier.cgPath
+        cLayer.strokeColor = UIColor.gray.cgColor
+        cLayer.fillColor = UIColor.red.cgColor
+        candleLayer.addSublayer(cLayer)
+    }
+    
+    /// 单个影线
+    ///
+    /// - Parameters:
+    ///   - i: 第几个
+    ///   - candelPath: 画线的对象
+    func drawSingleHatch(i: Int,candelPath: UIBezierPath) {
+        var heightPrice = kDataArr[i][5].doubleValue
+        var lowPrice = kDataArr[i][6].doubleValue
+        
+        let unit = spaceScale / 15 - 0.5
+        let pathX = CGFloat(i) * spaceScale / 3 + unit / 2
+        var coordH: CGFloat = priceToCoordY(price: Float(heightPrice))
+        candelPath.move(to: CGPoint(x: pathX, y: height - 30 - coordH))
+        candelPath.addLine(to: CGPoint(x: pathX, y: 0))
+    }
+    /// 价钱转换为高度
+    ///
+    /// - Parameter price: 价格
+    /// - Returns: 高度
+    func priceToCoordY(price: Float) -> CGFloat {
+        let priceParmaeter: CGFloat = CGFloat((price - 6.6) * 10)
+        let coordY = priceParmaeter * (height - 45) / 11.0
+        return coordY
+    }
+    
+    func rectForSingleCandle(i: Int) -> CGRect {
+        
+        let openingPrice: Float = Float(kDataArr[i][4].stringValue)!
+        let closePrice: Float = Float(kDataArr[i][7].stringValue)!
+        
+
+        
+        var coordHh: CGFloat = 0
+        var coordH: CGFloat = 0
+        if openingPrice > closePrice {
+            /// 绿色
+            coordHh = priceToCoordY(price: openingPrice) - priceToCoordY(price: closePrice)
+            coordH = priceToCoordY(price: openingPrice)
+        } else {
+            /// 红色
+            coordHh = priceToCoordY(price: closePrice) - priceToCoordY(price: openingPrice)
+            coordH = priceToCoordY(price: closePrice)
+        }
+        let unit = spaceScale / 15 - 0.5
+        let rect = CGRect(x: CGFloat(i) * spaceScale / 3 + unit - 1, y: height - 30 - coordH, width: unit * 3, height: coordHh)
+        
+        return rect
+    }
+
     /// 交易量柱状图
     private func drawTradingVolum() {
         columnLayer.removeFromSuperlayer()
@@ -89,7 +163,7 @@ class KlineWalkView: UIView {
         let vlayer = YYGShapeLayer()
         vlayer.path = linePath.cgPath
         vlayer.lineWidth = 0.5
-        vlayer.fillColor = UIColor(r: 196, g: 196, b: 196).cgColor
+        vlayer.fillColor = UIColor(r: 233, g: 233, b: 233).cgColor
         vlayer.strokeColor = UIColor(r: 196, g: 196, b: 196).cgColor
         columnLayer.addSublayer(vlayer)
     }
@@ -107,18 +181,16 @@ class KlineWalkView: UIView {
         bottomLayer.removeFromSuperlayer()
         bottomLayer.sublayers?.removeAll()
         textLayer.sublayers?.removeAll()
+        
         let textSize = "3月/23".getStringSzie()
         let bottomScale = UIBezierPath()
         for i in 1..<(kDataArr.count / scaleNum) {
+            
             let coordX = CGFloat(i) * spaceScale
             bottomScale.move(to: CGPoint(x: coordX, y: height - 30))
             bottomScale.addLine(to: CGPoint(x: coordX, y: height - 26))
             
-            let textBottom = CATextLayer()
-            textBottom.string = datePatternSetting(i: i)
-            textBottom.frame = CGRect(origin: CGPoint(x: coordX - spaceScale / 2, y: height - 24), size: textSize)
-            textSetting(textLayer: textBottom)
-            textLayer.addSublayer(textBottom)
+            textBottomSetting(i: i, coordX: coordX, textSize: textSize)
         }
         let bottomCashape = CAShapeLayer()
         bottomCashape.lineWidth = 1
@@ -130,18 +202,24 @@ class KlineWalkView: UIView {
         layer.addSublayer(textLayer)
     }
     
-    func textSetting(textLayer: CATextLayer) {
-        textLayer.fontSize = 9
-        textLayer.foregroundColor = UIColor.red.cgColor
-        textLayer.alignmentMode = kCAAlignmentCenter
-        textLayer.contentsScale = UIScreen.main.scale
-    }
-    
+    /// 每个底部标注
+    ///
+    /// - Parameters:
+    ///   - i: 第几个
+    ///   - coordX: x坐标
+    ///   - textSize: 字体大小
     func textBottomSetting(i: Int,coordX: CGFloat,textSize: CGSize) {
-        
+        let textBottom = CATextLayer()
+        textBottom.string = datePatternSetting(i: i)
+        textBottom.frame = CGRect(origin: CGPoint(x: coordX - spaceScale / 2, y: height - 24), size: textSize)
+        textBottom.fontSize = 9
+        textBottom.foregroundColor = UIColor.red.cgColor
+        textBottom.alignmentMode = kCAAlignmentCenter
+        textBottom.contentsScale = UIScreen.main.scale
+        textLayer.addSublayer(textBottom)
     }
     
-//    "2017-03-29T07:00:00+00:00"
+    //    "2017-03-29T07:00:00+00:00"
     private var lastStr: String = ""
     
     func datePatternSetting(i: Int) -> String {

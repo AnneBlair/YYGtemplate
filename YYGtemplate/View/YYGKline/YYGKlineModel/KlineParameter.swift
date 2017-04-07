@@ -17,4 +17,8 @@ struct KlineParameter {
     var dottedNum = 11
     /// 标尺的宽度 
     var scaleWide: CGFloat = 6
+    /// 柱状图颜色
+    var columnColor: UIColor = UIColor(r: 233, g: 233, b: 233)
+    
+    
 }
