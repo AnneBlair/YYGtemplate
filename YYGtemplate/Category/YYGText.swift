@@ -49,6 +49,12 @@ extension NSNumber {
     }
 }
 
+extension Int {
+    func intToCGFloat() -> CGFloat {
+        return CGFloat(self)
+    }
+}
+
 extension String {
     /// 截取第一个到第任意位置
     ///

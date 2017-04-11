@@ -58,18 +58,21 @@ class KlineWalkView: UIView {
     /// Trading volume
     func drawKlineView() {
         clearLayer()
-        
     }
     
     func clearLayer() {
 
     }
-    
+    func loopArrCount(loop :(_ i: Int)-> Void) {
+        for i in 1..<kDataArr.count {
+            loop(i)
+        }
+    }
     /// 蜡烛图
     private func drawCandleChartLayer() {
         candleLayer.removeFromSuperlayer()
         candleLayer.sublayers?.removeAll()
-        for i in 1..<kDataArr.count {
+        loopArrCount() { i in
             singleCandleLayer(i: i)
         }
         layer.addSublayer(candleLayer)
@@ -79,30 +82,34 @@ class KlineWalkView: UIView {
 
         let rect = rectForSingleCandle(i: i)
         let candelBezier = UIBezierPath(rect: rect)
-    
         drawSingleHatch(i: i, candelPath: candelBezier)
-        
         let cLayer = YYGShapeLayer()
         cLayer.path = candelBezier.cgPath
-        cLayer.strokeColor = UIColor.gray.cgColor
-        cLayer.fillColor = UIColor.red.cgColor
+        cLayer.strokeColor = UIColor.black.cgColor
+        openAndCloseCompare(i: i) { isOpen in
+            if isOpen {
+                cLayer.fillColor = UIColor(r: 10, g: 143, b: 54).cgColor
+            } else {
+                cLayer.fillColor = UIColor.red.cgColor
+            }
+        }
+        candelBezier.lineWidth = 0.5
         candleLayer.addSublayer(cLayer)
     }
-    
     /// 单个影线
     ///
     /// - Parameters:
     ///   - i: 第几个
     ///   - candelPath: 画线的对象
     func drawSingleHatch(i: Int,candelPath: UIBezierPath) {
-        var heightPrice = kDataArr[i][5].doubleValue
-        var lowPrice = kDataArr[i][6].doubleValue
-        
+        let heightPrice = kDataArr[i][5].doubleValue
+        let lowPrice = kDataArr[i][6].doubleValue
         let unit = spaceScale / 15 - 0.5
-        let pathX = CGFloat(i) * spaceScale / 3 + unit / 2
-        var coordH: CGFloat = priceToCoordY(price: Float(heightPrice))
+        let pathX = CGFloat(i) * spaceScale / 3 + unit * 2.5
+        let coordH: CGFloat = priceToCoordY(price: Float(heightPrice))
+        let coorhH = priceToCoordY(price: Float(lowPrice))
         candelPath.move(to: CGPoint(x: pathX, y: height - 30 - coordH))
-        candelPath.addLine(to: CGPoint(x: pathX, y: 0))
+        candelPath.addLine(to: CGPoint(x: pathX, y: height - coorhH - 30))
     }
     /// 价钱转换为高度
     ///
@@ -118,24 +125,27 @@ class KlineWalkView: UIView {
         
         let openingPrice: Float = Float(kDataArr[i][4].stringValue)!
         let closePrice: Float = Float(kDataArr[i][7].stringValue)!
-        
-
-        
         var coordHh: CGFloat = 0
         var coordH: CGFloat = 0
-        if openingPrice > closePrice {
-            /// 绿色
-            coordHh = priceToCoordY(price: openingPrice) - priceToCoordY(price: closePrice)
-            coordH = priceToCoordY(price: openingPrice)
-        } else {
-            /// 红色
-            coordHh = priceToCoordY(price: closePrice) - priceToCoordY(price: openingPrice)
-            coordH = priceToCoordY(price: closePrice)
+        openAndCloseCompare(i: i) { isOpen in
+            if isOpen {
+                coordHh = priceToCoordY(price: openingPrice) - priceToCoordY(price: closePrice)
+                coordH = priceToCoordY(price: openingPrice)
+            } else {
+                coordHh = priceToCoordY(price: closePrice) - priceToCoordY(price: openingPrice)
+                coordH = priceToCoordY(price: closePrice)
+            }
         }
         let unit = spaceScale / 15 - 0.5
-        let rect = CGRect(x: CGFloat(i) * spaceScale / 3 + unit - 1, y: height - 30 - coordH, width: unit * 3, height: coordHh)
-        
+        let rect = CGRect(x: CGFloat(i) * spaceScale / 3 + unit, y: height - 30 - coordH, width: unit * 3, height: coordHh)
         return rect
+    }
+    
+    func openAndCloseCompare(i: Int,result: (_ isOpen: Bool)-> Void) {
+        let openingPrice: Float = Float(kDataArr[i][4].stringValue)!
+        let closePrice: Float = Float(kDataArr[i][7].stringValue)!
+        let bool = openingPrice > closePrice ? true : false
+        result(bool)
     }
 
     /// 交易量柱状图
@@ -144,7 +154,7 @@ class KlineWalkView: UIView {
         columnLayer.sublayers?.removeAll()
         // 3个
         let unit = spaceScale / 15
-        for i in 1..<kDataArr.count {
+        loopArrCount() { i in
             rectCalculate(i: i, unit: unit)
         }
         layer.addSublayer(columnLayer)
@@ -181,15 +191,12 @@ class KlineWalkView: UIView {
         bottomLayer.removeFromSuperlayer()
         bottomLayer.sublayers?.removeAll()
         textLayer.sublayers?.removeAll()
-        
         let textSize = "3月/23".getStringSzie()
         let bottomScale = UIBezierPath()
         for i in 1..<(kDataArr.count / scaleNum) {
-            
             let coordX = CGFloat(i) * spaceScale
             bottomScale.move(to: CGPoint(x: coordX, y: height - 30))
             bottomScale.addLine(to: CGPoint(x: coordX, y: height - 26))
-            
             textBottomSetting(i: i, coordX: coordX, textSize: textSize)
         }
         let bottomCashape = CAShapeLayer()
