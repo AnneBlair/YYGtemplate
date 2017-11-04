@@ -103,6 +103,7 @@ class YYGKline: UIView {
         //    |
         sideLinePath.move(to: CGPoint(x: wide - lineX, y: lineY))
         sideLinePath.addLine(to: CGPoint(x: wide - lineX, y: lineHeight))
+        
         let sideLineLayer = CAShapeLayer()
         sideLineLayer.lineWidth = 1
         sideLineLayer.strokeColor = UIColor(r: 212, g: 212, b: 212).cgColor

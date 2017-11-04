@@ -63,8 +63,8 @@ class YYGKlinecontainerVC: UIViewController {
                                           "issuer": "rJwxNNY2H1RHr8ePY46UpJxMKUSCziYJjq"],
                                           "timeIncrement": "hour",
                                           "timeMultiple": 1,
-                                          "startTime": "2017-03-30T09:00:00.000Z",
-                                          "endTime": "2017-04-06T09:00:00.000Z"]
+                                          "startTime": "2017-04-04T11:00:00.000Z",
+                                          "endTime": "2017-04-11T11:00:00.000Z"]
         
         Alamofire.request("https://www.r8exchange.com/chart-api/offersExercised", method: .post, parameters: parameters).responseJSON { (response) in
             switch response.result {
